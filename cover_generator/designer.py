@@ -19,14 +19,16 @@ Your covers MUST work at thumbnail size (100px wide on Amazon search results).
 CRITICAL AMAZON COVER RULES:
 1. Title must be readable at THUMBNAIL SIZE — massive, bold, high-contrast
 2. Maximum 2-3 title lines. Fewer words per line = bigger type = more readable
-3. Background must be simple and atmospheric — ONE strong mood, not cluttered
+3. Background must be SIMPLE and atmospheric — ONE strong mood, not cluttered with detail
 4. Text needs EXTREME contrast against background (white/gold on dark, or dark on light)
 5. Cover must POP against Amazon's white page — strong edges, saturated colors
 6. Genre signaling in 2 seconds — reader knows thriller/historical/etc instantly
-7. Author name clearly visible but secondary to title
-8. Subtitle/series line small but legible — don't compete with title
-9. DALL-E background: atmospheric, moody, NO text/letters/words, leave clear space for text overlay
+7. Author name must be CLEARLY VISIBLE even at thumbnail size — make it large enough
+8. Subtitle/series line must be legible at medium zoom — don't make it too small
+9. DALL-E background: atmospheric, moody, NO text/letters/words, leave clear dark/light zones at top and bottom for text overlay
 10. The background image should enhance mood without competing with typography
+11. DALL-E backgrounds must be SIMPLE — avoid cluttered scenes with many objects. One strong focal element, atmospheric haze/depth, clear negative space
+12. For HISTORICAL fiction: signal historical realism, NOT fantasy. Use realistic lighting, archaeological/architectural settings, muted warm tones. Avoid magical glows, fantasy creatures, or overly ornate/fantastical elements
 
 Available system fonts: {available_fonts}
 
@@ -54,7 +56,7 @@ Choose design parameters. Return ONLY valid JSON (no markdown, no explanation):
     "title_scale": <0.8 to 1.3, go BIG — readable at thumbnail>,
     "layout_variant": "<one of: centered, top-heavy, bottom-heavy>",
     "decorative_elements": ["<zero or more of: divider_line, border, gradient_overlay, text_shadow>"],
-    "dalle_prompt": "<DALL-E background scene — atmospheric, period-accurate, NO TEXT/WORDS/LETTERS. Must leave clear dark/light zones at top and bottom for text overlay. Describe the historical setting, lighting, and mood specifically.>",
+    "dalle_prompt": "<DALL-E background scene — SIMPLE atmospheric composition, period-accurate, NO TEXT/WORDS/LETTERS. One strong focal element with atmospheric depth/haze. Must leave clear dark zones at top and bottom for text overlay. Keep it UNCLUTTERED — fewer objects, more mood. For historical: realistic lighting, no fantasy elements.>",
     "design_rationale": "<one sentence explaining your choices>"
 }}"""
 

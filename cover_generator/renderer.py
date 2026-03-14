@@ -394,9 +394,10 @@ def render_front_only(book, design_params, genre_name='thriller',
     # Add dark gradient overlays for text zones on DALL-E backgrounds
     if has_dalle_bg:
         # Dark gradient from top (title zone) — covers top 55%
-        img = _add_text_gradient(img, 0, int(height * 0.55), opacity=200, from_top=True)
-        # Dark gradient from bottom (author zone) — covers bottom 25%
-        img = _add_text_gradient(img, int(height * 0.75), int(height * 0.25), opacity=220, from_top=False)
+        img = _add_text_gradient(img, 0, int(height * 0.55), opacity=220, from_top=True)
+        # Dark gradient from bottom (author + subtitle zone) — covers bottom 40%
+        # Extended higher and darker to tame busy backgrounds and make author/subtitle readable
+        img = _add_text_gradient(img, int(height * 0.60), int(height * 0.40), opacity=240, from_top=False)
 
     draw = ImageDraw.Draw(img)
 
@@ -450,16 +451,21 @@ def render_front_only(book, design_params, genre_name='thriller',
     else:
         y += margin
 
-    # Subtitle
+    # Subtitle / series — sized for readability, word-wrapped within margins
     if book.get('subtitle') or book.get('series'):
         sub_text = book.get('subtitle') or book.get('series', '')
-        sub_size = max(28, base_size // 4)
+        sub_size = max(44, int(base_size * 0.35))
         sub_font = load_font(subtitle_font_name, sub_size)
-        _center_text(draw, sub_text, sub_font, secondary, center_x, y,
-                     shadow=use_shadow, outline=use_outline)
+        # Word-wrap to fit within usable width (with extra padding)
+        sub_max_w = int(usable_w * 0.85)
+        sub_lines = _word_wrap(draw, sub_text, sub_font, sub_max_w)
+        for sub_line in sub_lines:
+            h = _center_text(draw, sub_line, sub_font, secondary, center_x, y,
+                             shadow=use_shadow, outline=use_outline)
+            y += h + 8
 
-    # Author
-    author_size = max(36, base_size // 3)
+    # Author — sized for thumbnail readability (must be visible at 150px)
+    author_size = max(56, int(base_size * 0.45))
     author_font = load_font(author_font_name, author_size)
     author_text = book.get('author', '').upper()
     _, ah = _text_size(draw, author_text, author_font)
